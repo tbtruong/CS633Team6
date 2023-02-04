@@ -1,12 +1,12 @@
 import React from 'react';
+import MainPage from "./Components/mainPage"
+import {Box} from "@mui/material"
 
-function App() {
+const App = () => {
   return (
-    <div>
-      <header>
-        <text> Goodbye </text>
-      </header>
-    </div>
+    <Box>
+        <MainPage/>
+    </Box>
   );
 }
 
