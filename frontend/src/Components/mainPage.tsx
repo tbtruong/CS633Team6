@@ -5,19 +5,19 @@ import {Box, Button, TextField} from "@mui/material"
 const mainPage = () => {
     return (
         <Box>
-            <Typography>
+            <Typography variant='h3'>
                 Boston University's Metropolitan College
             </Typography>
-            <Typography>
+            <Typography variant='h4'>
                 Welcome to the Pre-course Survey
             </Typography>
-            <Typography>
+            <Typography variant='h5'>
                 CS633: Software Quality, Testing, and Security Management
             </Typography>
-            <Typography>
+            <Typography  variant='h5'>
                 Spring 2023
             </Typography>
-            <Typography>
+            <Typography  variant='h6'>
                 Please enter your BU ID
             </Typography>
             <TextField>
@@ -28,5 +28,6 @@ const mainPage = () => {
         </Box>
     );
 }
+
 
 export default mainPage;
