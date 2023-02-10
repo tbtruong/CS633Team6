@@ -36,7 +36,11 @@ const bigBox = {
 
 const buttonHolder = {
 //CSS
-    marginBottom: '30px'
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'right',
+    justifyContent: 'right'
+
 }
 
 const mainPage = () => {
@@ -44,7 +48,9 @@ const mainPage = () => {
         <Box sx={bigBox}>
             <Box sx={buttonHolder}>
                 <Button> Boston University</Button>
-                <Button> Generate Team Report</Button>
+                <Button variant="contained" size="large">
+                              Teams Report
+                            </Button>
             </Box>
             <Typography variant='h3' sx={stylingH3}>
                 Boston University's Metropolitan College
@@ -57,20 +63,29 @@ const mainPage = () => {
             </Typography>
             <Typography  variant='h5' sx={stylingH5}>
                 Spring 2023
+                <br></br>
+                <br></br>
+                <br></br>
             </Typography>
             <Box>
-                <Typography  variant='h6' sx={stylingH6}>
-                    Please enter your BU ID
-                </Typography>
-                <TextField>
-                </TextField>
+                <TextField
+                          required
+                          id="BU-ID"
+                          label="Please enter your BU ID"
+                          defaultValue=" "
+                          size="medium"
+                        />
             </Box>
             <Typography  variant='h6'>
+                <br></br>
+                <br></br>
                 The information provided on this form will only be used to assign students to teams.
                 This information has no impact on student’s grade.
-            </Typography>
-            <Button>
-                Next
+                <br></br>
+                <br></br>
+            </Typography >
+            <Button variant="contained" size="large" sx={buttonHolder}>
+              NEXT
             </Button>
         </Box>
     );
