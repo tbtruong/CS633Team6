@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170.08 74">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: #d71515;
+      }
+
+      .cls-2 {
+        font-family: SourceSansRoman-Semibold, 'Source Sans Variable';
+        font-size: 30.28px;
+        font-variation-settings: 'wght' 600;
+        font-weight: 600;
+      }
+
+      .cls-4 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-5 {
+        letter-spacing: 0em;
+      }
+
+      .cls-6 {
+        letter-spacing: -.07em;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <rect class="cls-3" x=".5" y=".5" width="169.08" height="73"/>
+      <path d="m169.08,1v72H1V1h168.08m1-1H0v74h170.08V0h0Z"/>
+    </g>
+    <path class="cls-1" d="m167.27,2.75v68.65H2.77V2.75h164.5m.75-.75H2.02v70.15h166V2h0Z"/>
+    <text class="cls-2" transform="translate(31.73 26.69) scale(1.27 1)"><tspan class="cls-6" x="0" y="0">T</tspan><tspan class="cls-4" x="14.38" y="0">e</tspan><tspan x="29.37" y="0">ams</tspan><tspan class="cls-5" x="-2.66" y="36.34">R</tspan><tspan x="14.96" y="36.34">eport</tspan></text>
+  </g>
+</svg>
