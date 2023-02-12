@@ -72,8 +72,9 @@ const mainPage = () => {
                           required
                           id="BU-ID"
                           label="Please enter your BU ID"
-                          defaultValue=" "
+                          //defaultValue=" "
                           size="medium"
+                          InputLabelProps={{ shrink: true }}
                         />
             </Box>
             <Typography  variant='h6'>
@@ -84,7 +85,7 @@ const mainPage = () => {
                 <br></br>
                 <br></br>
             </Typography >
-            <Button variant="contained" size="large" sx={buttonHolder}>
+            <Button variant="contained" size="large" sx={buttonHolder} >
               NEXT
             </Button>
         </Box>
