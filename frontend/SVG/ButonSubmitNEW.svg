@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 167.25 56.02">
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <g>
+        <rect x=".5" y=".5" width="166.25" height="55.02" style="fill: #d71515;"/>
+        <path d="m166.25,1v54.02H1V1h165.25m1-1H0v56.02h167.25V0h0Z"/>
+      </g>
+      <path d="m164.48,2.26v51.61H2.73V2.26h161.74m.75-.75H1.98v53.11h163.24V1.51h0Z" style="fill: #fff;"/>
+      <text transform="translate(18.46 35.68) scale(1.27 1)" style="fill: #fff; font-family: SourceSansRoman-Semibold, &apos;Source Sans Variable&apos;; font-size: 30.28px; font-variation-settings: &apos;wght&apos; 600; font-weight: 600;"><tspan x="0" y="0">SUBMIT</tspan></text>
+    </g>
+  </g>
+</svg>

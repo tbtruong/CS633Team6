@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 475 202">
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <g>
+        <rect x=".5" y=".5" width="474" height="201" style="fill: #d71515;"/>
+        <path d="m474,1v200H1V1h473m1-1H0v202h475V0h0Z"/>
+      </g>
+      <path d="m459,15v171.45H17.92V15h441.08m5-5H12.92v181.45h451.08V10h0Z" style="fill: #fff;"/>
+      <text transform="translate(124.04 82.68)" style="fill: #fff; font-family: BigCaslon-Medium, &apos;Big Caslon&apos;; font-size: 72px; font-weight: 500;"><tspan x="0" y="0">TEAM</tspan><tspan x="-67.25" y="86.4">BUILDER</tspan></text>
+    </g>
+  </g>
+</svg>
