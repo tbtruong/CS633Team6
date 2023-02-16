@@ -2,8 +2,53 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import {Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField} from "@mui/material"
 import Slider from '@mui/material/Slider';
+import Selector from "./Selector"
+import SliderComponent from "./Slider"
+
+//Examples
+const countryOptions = [
+    {
+        "value": "MA",
+        "label": "Massachusetts"
+    },
+    {
+        "value": "NY",
+        "label": "New York"
+    },
+    {
+        "value": "State two letter identifier",
+        "label": "State Name Spelled Out"
+    }
+]
+
+const stateOptions = [
+    {
+        "value": "MA",
+        "label": "Massachusetts"
+    },
+    {
+        "value": "NY",
+        "label": "New York"
+    },
+    {
+        "value": "State two letter identifier",
+        "label": "State Name Spelled Out"
+    }
+]
+
+const timezoneOptions = [
+    {
+        "value": -5,
+        "label": "Eastern Standard Time (EST)",
+    },
+    {
+        "value": 0, //The UTC value
+        "label": "The full name of timezone and acronym of the timezone"
+    }
+]
 
 
+//Styling
 const stylingH3 = {
     color: "black",
     fontSize: "50px",
@@ -49,9 +94,20 @@ const locationSelect = {
     width: '100px'
 }
 
+
+//Main Page
 const MainPage = () => {
 
-    const [age, setAge] = React.useState('');
+    const [country, setCountry] = React.useState('');
+    const [state, setState] = React.useState('');
+    const [timezone, setTimezone] = React.useState('');
+
+    const [coding, setCoding] = React.useState(0);
+    const [requirements, setRequirements] = React.useState(0);
+    const [testing, setTesting] = React.useState(0);
+    const [ui, setUi] = React.useState(0);
+    const [projectManagement, setProjectManagement] = React.useState(0);
+
 
     let exampleJson = {
         firstName: 'John',
@@ -60,24 +116,6 @@ const MainPage = () => {
         buId: 'U12345678'
     }
 
-    const handleChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value as string);
-    };
-
-    function valuetext(value: number) {
-        return `${value}°C`;
-    }
-
-    const marks = [
-        {
-            value: 0,
-            label: 'No Experience',
-        },
-        {
-            value: 100,
-            label: 'Very Experienced',
-        },
-    ];
 
 
 
@@ -86,8 +124,8 @@ const MainPage = () => {
             <Box sx={buttonHolder}>
                 <Button> Boston University</Button>
                 <Button variant="contained" size="large">
-                              Teams Report
-                            </Button>
+                    Teams Report
+                </Button>
             </Box>
             <Typography variant='h3' sx={stylingH3}>
                 Boston University's Metropolitan College
@@ -100,9 +138,6 @@ const MainPage = () => {
             </Typography>
             <Typography  variant='h5' sx={stylingH5}>
                 Spring 2023
-                <br></br>
-                <br></br>
-                <br></br>
             </Typography>
             <Box>
                 <TextField
@@ -115,12 +150,9 @@ const MainPage = () => {
                         />
             </Box>
             <Typography  variant='h6'>
-                <br></br>
-                <br></br>
                 The information provided on this form will only be used to assign students to teams.
                 This information has no impact on student’s grade.
-                <br></br>
-                <br></br>
+
             </Typography >
             <Button variant="contained" size="large" sx={buttonHolder} >
               NEXT
@@ -137,146 +169,37 @@ const MainPage = () => {
             <Typography>
                 Organization you are currently working for
             </Typography>
+
             <TextField fullWidth required id="outlined-basic" label="Organization you are currently working for"  InputLabelProps={{ shrink: true }} variant="outlined" />
 
             <Typography>
-                Please describe your main work responsibilties
+                Please describe your main work responsibilities
             </Typography>
-            <TextField fullWidth required id="outlined-basic"   InputLabelProps={{ shrink: true }} variant="outlined" />
+
+            <TextField fullWidth required id="outlined-basic"  InputLabelProps={{ shrink: true }} variant="outlined" />
 
             <Typography>
                 Where are you located?
             </Typography>
+
+            //3 Forms: 1 for Country, State, Timezone
             <Box>
-            <FormControl size="medium" sx={locationSelect}>
-                <InputLabel id="demo-simple-select-label" > Country </InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={age}
-                    label="Country"
-                    onChange={handleChange}
-                >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-            </FormControl>
-
-            <FormControl size="medium" sx={locationSelect}>
-                <InputLabel id="demo-simple-select-label" > State </InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={age}
-                    label="Country"
-                    onChange={handleChange}
-                >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-            </FormControl>
-
-            <FormControl size="medium" sx={locationSelect}>
-                <InputLabel id="demo-simple-select-label" >Timezone</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={age}
-                    label="Timezone"
-                    onChange={handleChange}
-                >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-            </FormControl>
+                <Selector selectorCallback={setCountry} selectorOptions={countryOptions}></Selector>
+                <Selector selectorCallback={setState} selectorOptions={stateOptions}></Selector>
+                <Selector selectorCallback={setTimezone} selectorOptions={timezoneOptions}></Selector>
             </Box>
 
             <Typography>
                 Please rank the following course project roles based on your experience
             </Typography>
+
             <Box>
-                <Box sx={{width: 300, display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Typography>
-                    No Experience
-                </Typography>
-
-                <Typography>
-                    Very Experienced
-                </Typography>
-                </Box>
-
-            <Box sx={{ width: 300, display: 'flex', flexDirection: 'row' }}>
-                <Typography>
-                    Coding:
-                </Typography>
-                <Slider
-                    aria-label="Custom marks"
-                    defaultValue={20}
-                    getAriaValueText={valuetext}
-                    step={10}
-                    marks={marks}
-                />
+                <SliderComponent typography={'Coding'} sliderCallback={setCoding}/>
+                <SliderComponent typography={'Requirements'} sliderCallback={setRequirements}/>
+                <SliderComponent typography={'Testing'} sliderCallback={setTesting}/>
+                <SliderComponent typography={'UI'} sliderCallback={setUi}/>
+                <SliderComponent typography={'Project Management'} sliderCallback={setProjectManagement}/>
             </Box>
-
-            <Box sx={{ width: 300 }}>
-                <Typography>
-                    Requirements:
-                </Typography>
-                <Slider
-                    aria-label="Custom marks"
-                    defaultValue={20}
-                    getAriaValueText={valuetext}
-                    step={10}
-                    valueLabelDisplay="auto"
-                    marks={marks}
-                />
-            </Box>
-
-            <Box sx={{ width: 300 }}>
-                <Typography>
-                    Testing:
-                </Typography>
-                <Slider
-                    aria-label="Custom marks"
-                    defaultValue={20}
-                    getAriaValueText={valuetext}
-                    step={10}
-                    valueLabelDisplay="auto"
-                    marks={marks}
-                />
-            </Box>
-
-            <Box sx={{ width: 300 }}>
-                <Typography>
-                    UI Design:
-                </Typography>
-                <Slider
-                    aria-label="Custom marks"
-                    defaultValue={20}
-                    getAriaValueText={valuetext}
-                    step={10}
-                    valueLabelDisplay="auto"
-                    marks={marks}
-                />
-            </Box>
-
-            <Box sx={{ width: 300 }}>
-                <Typography>
-                    Project Management:
-                </Typography>
-                <Slider
-                    aria-label="Custom marks"
-                    defaultValue={20}
-                    getAriaValueText={valuetext}
-                    step={10}
-                    valueLabelDisplay="auto"
-                    marks={marks}
-                />
-            </Box>
-        </Box>
 
         <Typography>
            In a brief paragraph, please describe your experience in the above 5 categories.
