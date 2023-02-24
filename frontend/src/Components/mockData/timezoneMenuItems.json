@@ -1,0 +1,10 @@
+[
+    {
+        "value": -5,
+        "label": "Eastern Standard Time (EST)"
+    },
+    {
+        "value": "The UTC value",
+        "label": "The full name of timezone and acronym of the timezone"
+    }
+]

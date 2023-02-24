@@ -142,9 +142,9 @@ app.get('/generateTeams', async (req, res) => {
     //This is the result
     const results = item.rows
 
-    // let csv2data = item.rows.map((student) => Object.values(student).map((value)=> `"${student.replace(/"/g, "")}"`).join(','))
-    // csv2data.unshift(Object.keys(items.rows[0]).join(',')) //headers
-    // csv2data.join('\n')
+    let csv2data = item.rows.map((student) => Object.values(student).map((value)=> `"${JSON.stringify(value).replace(/"/g, "")}"`).join(','))
+    csv2data.unshift(Object.keys(item.rows[0]).join(',')) //headers
+    csvRows2 = csv2data.join('\n')
 
 
 
@@ -191,23 +191,11 @@ app.get('/generateTeams', async (req, res) => {
       }
     })
 
-    // console.log(role, 'Final') //33
-
   } catch (err) {
     console.log(err.message)
     res.status(500).send("Server error")
   }
 
-
-  //At this point each student should be sorted in their strongest role and their timezones.
-  //Now we find the best number of students per group
-
-  const codingMajor = softwareDevMajor.length
-  const codingExperience = softwareExperience.length
-  // console.log(softwareDevMajor.length, 'SoftwareStudents')
-  // console.log(noSurveyStudents.length, 'NoSurvey')
-  // console.log([...new Set(Object.values(role).flatMap((studentsByTimezone) => Object.values(studentsByTimezone)).map((student) => student.studentid))].length, 'RestofStudent')
-  // console.log(JSON.stringify(role, null, 2), 'Role')
     const arrayOfGroups = softwareDevMajor.map((currentCoder) => {
       //Get the optimal timezone for the group based around coder
       let coderTimezone = currentCoder.timezonefromutc
@@ -265,9 +253,6 @@ app.get('/generateTeams', async (req, res) => {
     arrayOfGroups.push(group)
   })
 
-  console.log(JSON.stringify([...Object.values(role).flatMap((studentsByTimezone) => Object.values(studentsByTimezone).flat())],null, 2), 'newest1')
-  // console.log(arrayOfGroups.reduce((x,y) => x + y.length, 0), 'numberofPeople')
-
   //At this stage all students have been sorted. In the arrayOfGroups array. [[{student1}, {student2}, {student3}], [group2]]
   // let strengths = [Number(-Infinity), Number(student.uidesign), Number(student.testing), Number(student.requirements), Number(student.projectmanager)]
   const csvRows = arrayOfGroups.flatMap((groupOfStudents, index) =>
@@ -276,7 +261,6 @@ app.get('/generateTeams', async (req, res) => {
     ].join(','))
   )
 
-  // console.log(csvRows)
   csvRows.unshift('groupNumber,studentid')
 
   const csvString = csvRows.join('\n') //Data for csv
@@ -286,7 +270,7 @@ app.get('/generateTeams', async (req, res) => {
 
   //creates csvString
   res.attachment(fileName)
-  res.status(200).send(csvString)
+  res.status(200).send(csvRows2)
 
 
   // res.status(200).send(JSON.stringify(arrayOfGroups))

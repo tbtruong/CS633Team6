@@ -8,8 +8,7 @@ interface SliderComponentProps {
     sliderCallback: (value: number) => void
 }
 
-
-//Takes in title, callback function,
+//Takes in title, callback function
 const SliderComponent = ({typography, sliderCallback}: SliderComponentProps) => {
 
     const [value, setValue] = React.useState<number>(30);

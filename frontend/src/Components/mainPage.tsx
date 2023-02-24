@@ -1,52 +1,15 @@
-import React from 'react';
+import React, {FormEvent} from 'react';
 import Typography from '@mui/material/Typography';
-import {Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField} from "@mui/material"
-import Slider from '@mui/material/Slider';
+import {Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@mui/material"
 import Selector from "./Selector"
 import SliderComponent from "./Slider"
+import axios, {AxiosError} from "axios"
+import stateOptions from './mockData/stateMenuItems.json'
+import timezoneOptions from './mockData/timezoneMenuItems.json'
+import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
 
-//Examples
-const countryOptions = [
-    {
-        "value": "MA",
-        "label": "Massachusetts"
-    },
-    {
-        "value": "NY",
-        "label": "New York"
-    },
-    {
-        "value": "State two letter identifier",
-        "label": "State Name Spelled Out"
-    }
-]
 
-const stateOptions = [
-    {
-        "value": "MA",
-        "label": "Massachusetts"
-    },
-    {
-        "value": "NY",
-        "label": "New York"
-    },
-    {
-        "value": "State two letter identifier",
-        "label": "State Name Spelled Out"
-    }
-]
-
-const timezoneOptions = [
-    {
-        "value": -5,
-        "label": "Eastern Standard Time (EST)",
-    },
-    {
-        "value": 0, //The UTC value
-        "label": "The full name of timezone and acronym of the timezone"
-    }
-]
-
+const teamBuilderIcon = require('../SVG/TeamBuilderLogo.svg') as string;
 
 //Styling
 const stylingH3 = {
@@ -97,6 +60,7 @@ const locationSelect = {
 
 //Main Page
 const MainPage = () => {
+    const [buId, setBuId] = React.useState('');
 
     const [country, setCountry] = React.useState('');
     const [state, setState] = React.useState('');
@@ -108,22 +72,118 @@ const MainPage = () => {
     const [ui, setUi] = React.useState(0);
     const [projectManagement, setProjectManagement] = React.useState(0);
 
+    const [nextPage, setNextPage] = React.useState(false);
 
-    let exampleJson = {
-        firstName: 'John',
-        middleName: 'Andrew',
-        lastName: 'Smith',
-        buId: 'U12345678'
+    const [responsibilities, setResponsibilities] = React.useState('');
+    const [experience, setExperience] = React.useState('');
+    const [organization, setOrganization] = React.useState('');
+
+    const [userData, setUserData] = React.useState({"firstName": "", "middleName": "", "lastName": "", "buId": ""})
+
+    const [open, setOpen] = React.useState(true);
+    const [dialogHeader, setDialogHeader] = React.useState("");
+    const [dialogMessage, setDialogMessage] = React.useState("");
+
+    function HomeIcon(props: SvgIconProps) {
+        return (
+            <SvgIcon {...props}>
+                {teamBuilderIcon}
+            </SvgIcon>
+        );
     }
 
 
 
+    const handleDownload = () => {
+        axios({
+            url: "/generateTeams",
+            method: "GET",
+            responseType: "blob",
+        }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "data.csv");
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode?.removeChild(link);
+        });
+    };
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const checkBuId = () => {
+        // Send Axios request here
+        axios.get("/checkId", {
+            params: {id: buId}
+        }).then(resp => {
+            console.log(resp.status)
+            if (resp.status === 200) {
+                //Extract out student information from resp  and set it into state
+                setUserData(resp.data)
+                setNextPage(true);
+            }
+            else if (resp.status === 201) {
+                console.log('survey already submitted')
+                //Make a dialog?
+                console.log('in survey already submitted')
+                setDialogHeader("Survey Already Submitted")
+                setDialogMessage("If you believe this might be an error, please contact the professor")
+                setOpen(true)
+            } else {
+                //Make a dialog saying invalid id
+                console.log('invalid id')
+                setDialogHeader("Id invalid")
+                setDialogMessage("The Id submitted did not match anyone in the roster. Please try again")
+                setOpen(true)
+            }
+        });
+    }
+
+    const handleSubmit =  async () => {
+        // event?.preventDefault()
+        const data =  {
+            "StudentId": buId,
+            "Organization": organization,
+            "Responsibilities": responsibilities,
+            "Country": country,
+            "State": state,
+            "TimezoneFromUTC": timezone,
+            "Coding": coding,
+            "Requirements": requirements,
+            "Testing": testing,
+            "UIDesign": ui,
+            "ProjectManager": projectManagement,
+            "SurveyDate": new Date()
+        }
+
+        try {
+            await axios.post('/formSubmission', data).then((resp) => {
+                //successful adding
+                if (resp.status === 200) {
+                    setDialogHeader("Survey submitted")
+                    setDialogMessage("Thank you for submitting the survey")
+                    setOpen(true)
+                }
+                //Open dialog
+
+            })
+        } catch (err: any | AxiosError) {
+            console.log(err.message)
+        }
+    }
 
     return (
         <Box sx={bigBox}>
             <Box sx={buttonHolder}>
-                <Button> Boston University</Button>
-                <Button variant="contained" size="large">
+                <Button> <img src={teamBuilderIcon}/></Button>
+                <Button variant="contained" size="large" onClick={handleDownload}>
                     Teams Report
                 </Button>
             </Box>
@@ -144,7 +204,10 @@ const MainPage = () => {
                           required
                           id="BU-ID"
                           label="Please enter your BU ID"
-                          //defaultValue=" "
+                          value={buId}
+                          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                              setBuId(event.target.value);
+                          }}
                           size="medium"
                           InputLabelProps={{ shrink: true }}
                         />
@@ -152,62 +215,115 @@ const MainPage = () => {
             <Typography  variant='h6'>
                 The information provided on this form will only be used to assign students to teams.
                 This information has no impact on student’s grade.
-
             </Typography >
-            <Button variant="contained" size="large" sx={buttonHolder} >
+            <Button variant="contained" size="large" sx={buttonHolder} onClick={() => { checkBuId()}}>
               NEXT
             </Button>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {dialogHeader}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        {dialogMessage}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} autoFocus>
+                        I Understand
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            {nextPage ? <Box>
+                <Typography>
+                    BU ID: {userData.buId} <br/>
+                    First Name: {userData.firstName}  <br/>
+                    Middle Name: {userData.middleName}  <br/>
+                    Last Name: {userData.lastName} <br/>
+                </Typography>
 
+                <Typography>
+                    Organization you are currently working for
+                </Typography>
 
-            <Typography>
-                BU ID: {exampleJson.buId} <br/>
-                First Name: {exampleJson.firstName}  <br/>
-                Middle Name: {exampleJson.middleName}  <br/>
-                Last Name: {exampleJson.lastName} <br/>
-            </Typography>
+                <TextField
+                    required
+                    id="Organization "
+                    label="Organization you are currently working for"
+                    value={organization}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        setOrganization(event.target.value);
+                    }}
+                    size="medium"
+                    InputLabelProps={{ shrink: true }}
+                />
 
-            <Typography>
-                Organization you are currently working for
-            </Typography>
-
-            <TextField fullWidth required id="outlined-basic" label="Organization you are currently working for"  InputLabelProps={{ shrink: true }} variant="outlined" />
-
-            <Typography>
+                <Typography>
                 Please describe your main work responsibilities
-            </Typography>
+                </Typography>
 
-            <TextField fullWidth required id="outlined-basic"  InputLabelProps={{ shrink: true }} variant="outlined" />
 
-            <Typography>
+                <TextField
+                    required
+                    id="Responsibilities"
+                    value={responsibilities}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        setResponsibilities(event.target.value);
+                    }}
+                    size="medium"
+                    InputLabelProps={{ shrink: true }}
+                />
+
+                <Typography>
                 Where are you located?
-            </Typography>
+                </Typography>
 
-            //3 Forms: 1 for Country, State, Timezone
-            <Box>
-                <Selector selectorCallback={setCountry} selectorOptions={countryOptions}></Selector>
+                //3 Forms: 1 for Country, State, Timezone
+                <Box>
+                {/*<Selector selectorCallback={setCountry} selectorOptions={countryOptions}></Selector>*/}
                 <Selector selectorCallback={setState} selectorOptions={stateOptions}></Selector>
                 <Selector selectorCallback={setTimezone} selectorOptions={timezoneOptions}></Selector>
-            </Box>
+                </Box>
 
-            <Typography>
+                <Typography>
                 Please rank the following course project roles based on your experience
-            </Typography>
+                </Typography>
 
-            <Box>
+                <Box>
                 <SliderComponent typography={'Coding'} sliderCallback={setCoding}/>
                 <SliderComponent typography={'Requirements'} sliderCallback={setRequirements}/>
                 <SliderComponent typography={'Testing'} sliderCallback={setTesting}/>
                 <SliderComponent typography={'UI'} sliderCallback={setUi}/>
                 <SliderComponent typography={'Project Management'} sliderCallback={setProjectManagement}/>
-            </Box>
+                </Box>
 
-        <Typography>
-           In a brief paragraph, please describe your experience in the above 5 categories.
-        </Typography>
-        <TextField sx={{width: '300px'}} fullWidth required id="outlined-basic"   InputLabelProps={{ shrink: true }} variant="outlined"  inputProps={{ maxLength: 12 }}/>
+                <Typography>
+                In a brief paragraph, please describe your experience in the above 5 categories.
+                </Typography>
 
+                <TextField
+                    required
+                    id="Experience"
+                    label="Experience"
+                    value={experience}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        setExperience(event.target.value);
+                    }}
+                    size="medium"
+                    inputProps={{ maxLength: 12 }}
+                    InputLabelProps={{ shrink: true }}
+                />
 
+                <Button onClick={() => handleSubmit()}> SUBMIT </Button>
+                </Box>
 
+                : <Box></Box>
+            }
         </Box>
     );
 }
