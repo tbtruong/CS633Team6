@@ -114,13 +114,11 @@ const MainPage = () => {
                           InputLabelProps={{ shrink: true }}
                         />
             </Box>
-            <Typography  variant='h6'>
-                <br></br>
-                <br></br>
+            <Typography  variant='h6' sx={{marginTop: '50px'}}>
                 The information provided on this form will only be used to assign students to teams.
+            </Typography >
+            <Typography  variant='h6' sx={{marginBottom: '50px'}}>
                 This information has no impact on student’s grade.
-                <br></br>
-                <br></br>
             </Typography >
             <Button variant="contained" size="large" sx={buttonHolder} >
               NEXT
@@ -282,7 +280,6 @@ const MainPage = () => {
            In a brief paragraph, please describe your experience in the above 5 categories.
         </Typography>
         <TextField sx={{width: '300px'}} fullWidth required id="outlined-basic"   InputLabelProps={{ shrink: true }} variant="outlined"  inputProps={{ maxLength: 12 }}/>
-
 
 
         </Box>
