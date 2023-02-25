@@ -6,29 +6,12 @@ import SliderComponent from "./Slider"
 import axios, {AxiosError} from "axios"
 import stateOptions from './mockData/stateMenuItems.json'
 import timezoneOptions from './mockData/timezoneMenuItems.json'
-import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
 
 
-const teamBuilderIcon = require('../SVG/TeamBuilderLogo.svg') as string;
-
-
-function MySvgIcon(props: SvgIconProps) {
-    return (
-        <SvgIcon {...props}>
-            <g id="Layer_1-2" data-name="Layer 1">
-                <g>
-                    <rect className="cls-3" x=".5" y=".5" width="474" height="201"/>
-                    <path d="m474,1v200H1V1h473m1-1H0v202h475V0h0Z"/>
-                </g>
-                <path className="cls-2" d="m459,15v171.45H17.92V15h441.08m5-5H12.92v181.45h451.08V10h0Z"/>
-                <text className="cls-1" transform="translate(124.04 82.68)">
-                    <tspan x="0" y="0">TEAM</tspan>
-                    <tspan x="-67.25" y="86.4">BUILDER</tspan>
-                </text>
-            </g>
-        </SvgIcon>
-    );
-}
+import generateLogo from '../SVG/generate.png';
+import teamLogo from '../SVG/logo.png';
+import nextLogo from '../SVG/next.png';
+import submitLogo from '../SVG/submit.png';
 
 
 //Styling
@@ -73,8 +56,15 @@ const buttonHolder = {
 
 }
 
-const locationSelect = {
-    width: '100px'
+
+const buttonImageStyle = {
+    padding: 0,
+    minWidth: 0,
+    backgroundColor: 'transparent',
+    border: 'none',
+    '&:hover': {
+        background: 'none',
+    },
 }
 
 
@@ -195,9 +185,18 @@ const MainPage = () => {
     return (
         <Box sx={bigBox}>
             <Box sx={buttonHolder}>
-                <MySvgIcon/>
-                <Button variant="contained" size="large" onClick={handleDownload}>
-                    Teams Report
+                <Box sx={buttonImageStyle}>
+                    <img src={teamLogo} style={{
+                        width: '475px',
+                        height: '202px',
+                        objectFit: 'cover',
+                    }} alt="My Image" />
+                </Box>
+                <Button sx={buttonImageStyle} onClick={handleDownload} disableRipple>
+                    <img src={generateLogo} style={{
+                        width: '170px',
+                        height: '75px',
+                    }} alt="My Image" />
                 </Button>
             </Box>
             <Typography variant='h3' sx={stylingH3}>
@@ -332,12 +331,23 @@ const MainPage = () => {
                     InputLabelProps={{ shrink: true }}
                 />
 
-                <Button onClick={() => handleSubmit()}> SUBMIT </Button>
+                <Button sx={buttonImageStyle} onClick={() => handleSubmit()}>
+                    <img src={submitLogo} style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                    }} alt="My Image" />
+                </Button>
                 </Box>
-
-                : <Box><Button variant="contained" size="large" sx={buttonHolder} onClick={() => { checkBuId()}}>
-                    NEXT
-                </Button></Box>
+                : <Box>
+                    <Button sx={buttonImageStyle} onClick={() => { checkBuId()}}>
+                        <img src={nextLogo} style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                        }} alt="My Image" />
+                    </Button>
+                </Box>
             }
         </Box>
     );
@@ -345,36 +355,3 @@ const MainPage = () => {
 
 
 export default MainPage;
-
-/*
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import myImage from './my-image.png';
-
-const useStyles = makeStyles((theme) => ({
-  button: {
-    padding: 0,
-    minWidth: 0,
-    backgroundColor: 'transparent',
-    border: 'none',
-    cursor: 'pointer',
-  },
-  img: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-  },
-}));
-
-
-const MyImageButton = () => {
-  const classes = useStyles();
-
-  return (
-    <Button className={classes.button}>
-      <img src={myImage} alt="My Image" className={classes.img} />
-    </Button>
-  );
-};
-
- */
