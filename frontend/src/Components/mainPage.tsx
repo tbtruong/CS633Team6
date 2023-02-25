@@ -115,7 +115,7 @@ const countryOptions = [
 
 //Main Page
 const MainPage = () => {
-    const [buId, setBuId] = React.useState('');
+    const [buId, setBuId] = React.useState('U');
 
     const [country, setCountry] = React.useState('');
     const [state, setState] = React.useState('');
@@ -251,6 +251,7 @@ const MainPage = () => {
             </Typography>
             <Box>
                 <TextField
+                          sx={{width: '300px'}}
                           required
                           id="BU-ID"
                           label="Please enter your BU ID (UXXXXXXXX Format)"
