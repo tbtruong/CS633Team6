@@ -270,18 +270,16 @@ app.get('/generateTeams', async (req, res) => {
 
 
 
-  //creates csvString
+  // File with roster + survey
+  // res.attachment(fileName)
+  // res.status(200).send(csvRows2)
+
+  //File with grouping
   res.attachment(fileName)
-  res.status(200).send(csvRows2)
+  res.status(200).send(csvString)
 
 
   // res.status(200).send(JSON.stringify(arrayOfGroups))
-
-
-
-  //Once algorithim assigns them to teams, add it into the database
-  //Send the results back in json form or put it into an excel file and send it back?
-  // res.status(200).send(JSON.stringify(arrayOfGroups));
 
 });
 
