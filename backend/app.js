@@ -136,17 +136,15 @@ app.get('/generateTeams', async (req, res) => {
 
   try {
     const item = await client.query(
-        "SELECT Students.StudentId, StudentName, email, pgm, concentration1, concentration2, organization, Responsibilities, state, timezonefromutc, coding, requirements, testing, uidesign, projectmanager, surveydate FROM STUDENTS LEFT JOIN SURVEYS ON Students.StudentId = Surveys.StudentId ORDER BY Surveys.TimezoneFromUTC ASC;"
+        "SELECT Students.StudentId, StudentName, email, pgm, concentration1, concentration2, organization, Responsibilities, state, timezonefromutc, coding, requirements, testing, uidesign, projectmanager, experience, surveydate FROM STUDENTS LEFT JOIN SURVEYS ON Students.StudentId = Surveys.StudentId ORDER BY Surveys.TimezoneFromUTC ASC;"
     );
 
     //This is the result
     const results = item.rows
 
-    let csv2data = item.rows.map((student) => Object.values(student).map((value)=> `"${JSON.stringify(value).replace(/"/g, "")}"`).join(','))
-    csv2data.unshift(Object.keys(item.rows[0]).join(',')) //headers
-    csvRows2 = csv2data.join('\n')
-
-
+    // let csv2data = item.rows.map((student) => Object.values(student).map((value)=> `"${JSON.stringify(value).replace(/"/g, "")}"`).join(','))
+    // csv2data.unshift(Object.keys(item.rows[0]).join(',')) //headers
+    // csvRows2 = csv2data.join('\n')
 
     totalStudents = item.rows.length
     const targetNumberOfGroups = Math.floor(totalStudents/5)
@@ -257,13 +255,16 @@ app.get('/generateTeams', async (req, res) => {
 
   //At this stage all students have been sorted. In the arrayOfGroups array. [[{student1}, {student2}, {student3}], [group2]]
   // let strengths = [Number(-Infinity), Number(student.uidesign), Number(student.testing), Number(student.requirements), Number(student.projectmanager)]
+
+
   const csvRows = arrayOfGroups.flatMap((groupOfStudents, index) =>
     groupOfStudents.map((student) => [
-        index + 1, student.studentid, '"' + student.studentname + '"', student.coding, student.uidesign, student.testing, student.requirements, student.projectmanger, student.concentration1, student.timezonefromutc
+        index + 1, student.studentid, '"' + student.studentname + '"', student.email, student.timezonefromutc, student.coding, student.uidesign, student.testing, student.requirements, student.projectmanager, student.concentration1, student.concentration2, '"' + student.organization + '"', '"' + student.responsibilities + '"', '"' + student.experience + '"'
     ].join(','))
   )
+  console.log(JSON.stringify(arrayOfGroups), null , 2)
 
-  csvRows.unshift('groupNumber,studentid')
+  csvRows.unshift('Group Number, Student Id, Full Name, Email, Timezone, Coding, UI/UX, Testing, Requirements, Projectmanager, Major, Minor, Organization, Responsibilities, Experience')
 
   const csvString = csvRows.join('\n') //Data for csv
   const fileName = 'Example1.csv'
