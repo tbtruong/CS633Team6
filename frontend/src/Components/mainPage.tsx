@@ -232,7 +232,7 @@ const MainPage = () => {
                         width: '475px',
                         height: '202px',
                         objectFit: 'cover',
-                    }} alt="My Image" />
+                    }} alt="Team Logo" />
                 </Box>
             </Box>
             <Typography variant='h3' sx={stylingH4}>
@@ -381,7 +381,7 @@ const MainPage = () => {
                         width: '100%',
                         height: '100%',
                         objectFit: 'cover',
-                    }} alt="My Image" />
+                    }} alt="Submit Logo" />
                 </Button>
                 </Box>
                 : <Box sx={buttonHolder}>
@@ -390,13 +390,13 @@ const MainPage = () => {
                             width: '100%',
                             height: '100%',
                             objectFit: 'cover',
-                        }} alt="My Image" />
+                        }} alt="Next Button Logo" />
                     </Button>
                     <Button sx={buttonImageStyle} onClick={handleDownload} disableRipple>
                         <img src={generateLogo} style={{
                             width: '170px',
                             height: '75px',
-                        }} alt="My Image" />
+                        }} alt="Generate Logo" />
                     </Button>
                 </Box>
             }
