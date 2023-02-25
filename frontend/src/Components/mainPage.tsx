@@ -6,27 +6,67 @@ import Slider from '@mui/material/Slider';
 
 const stylingH3 = {
     color: "black",
-    fontSize: "50px",
+    fontSize: "45px",
     marginBottom: "40px"
 }
 
 const stylingH4 = {
     color: "black",
-    fontSize: "40px",
+    fontSize: "35px",
     marginBottom: "30px"
 }
 const stylingH5 = {
     color: "black",
-    fontSize: "30px",
+    fontSize: "25x",
     marginBottom: "20px"
 }
 
 const stylingH6 = {
     color: "black",
-    fontSize: "20px",
+    fontSize: "15px",
     marginBottom: "1px"
 }
 
+const stylingH7 = {
+    color: "gray",
+    fontSize: "12px",
+    marginBottom: "1px",
+    marginTop: '30px'
+}
+
+const stylingH7LowSpace = {
+    color: "gray",
+    fontSize: "12px",
+    marginBottom: "1px",
+    marginTop: '10px'
+}
+
+const stylingH7LowSpaceUnderlined = {
+    color: "gray",
+    fontSize: "12px",
+    marginBottom: "1px",
+    marginTop: '10px'
+
+}
+
+const stylingH7BottomSpace = {
+    color: "gray",
+    fontSize: "12px",
+    marginBottom: "30px"
+}
+
+const stylingH7NoSpace = {
+    color: "gray",
+    fontSize: "12px",
+    //marginBottom: "10px"
+}
+
+const LargeTexBox = {
+    width: 600,
+    height: 50,
+    marginTop: "30px"
+
+}
 
 const bigBox = {
  //CSS
@@ -46,7 +86,7 @@ const buttonHolder = {
 }
 
 const locationSelect = {
-    width: '100px'
+    width: '200px'
 }
 
 const MainPage = () => {
@@ -71,11 +111,11 @@ const MainPage = () => {
     const marks = [
         {
             value: 0,
-            label: 'No Experience',
+            //label: 'No Experience',
         },
         {
             value: 100,
-            label: 'Very Experienced',
+            //label: 'Very Experienced',
         },
     ];
 
@@ -89,18 +129,17 @@ const MainPage = () => {
                               Teams Report
                             </Button>
             </Box>
-            <Typography variant='h3' sx={stylingH3}>
+            <Typography variant='h3' sx={stylingH4}>
                 Boston University's Metropolitan College
             </Typography>
-            <Typography variant='h4' sx={stylingH4}>
+            <Typography variant='h5' sx={stylingH5}>
                 Welcome to the Pre-course Survey
             </Typography>
-            <Typography variant='h5'sx={stylingH5}>
+            <Typography variant='h6'sx={stylingH6}>
                 CS633: Software Quality, Testing, and Security Management
             </Typography>
-            <Typography  variant='h5' sx={stylingH5}>
+            <Typography  variant='h6' sx={stylingH6}>
                 Spring 2023
-                <br></br>
                 <br></br>
                 <br></br>
             </Typography>
@@ -114,36 +153,35 @@ const MainPage = () => {
                           InputLabelProps={{ shrink: true }}
                         />
             </Box>
-            <Typography  variant='h6' sx={{marginTop: '50px'}}>
+            <Typography   sx={stylingH7}>
                 The information provided on this form will only be used to assign students to teams.
             </Typography >
-            <Typography  variant='h6' sx={{marginBottom: '50px'}}>
+            <Typography  sx={stylingH7BottomSpace}>
                 This information has no impact on student’s grade.
             </Typography >
             <Button variant="contained" size="large" sx={buttonHolder} >
               NEXT
             </Button>
 
-
-            <Typography>
-                BU ID: {exampleJson.buId} <br/>
-                First Name: {exampleJson.firstName}  <br/>
-                Middle Name: {exampleJson.middleName}  <br/>
-                Last Name: {exampleJson.lastName} <br/>
+            <Typography  sx={{stylingH6, marginTop: '30px'}}>
+                    BU ID:<b>{exampleJson.buId}</b> <br/>
+                    Name: <b>{exampleJson.firstName} {exampleJson.middleName} {exampleJson.lastName}</b> <br/>
             </Typography>
 
-            <Typography>
-                Organization you are currently working for
-            </Typography>
-            <TextField fullWidth required id="outlined-basic" label="Organization you are currently working for"  InputLabelProps={{ shrink: true }} variant="outlined" />
+            <TextField  sx={LargeTexBox}
+            required id="outlined-basic"
+            label="Organization you are currently working for"
+            InputLabelProps={{ shrink: true }} variant="outlined" />
 
-            <Typography>
-                Please describe your main work responsibilties
-            </Typography>
-            <TextField fullWidth required id="outlined-basic"   InputLabelProps={{ shrink: true }} variant="outlined" />
 
-            <Typography>
-                Where are you located?
+            <TextField sx={LargeTexBox}
+            required id="outlined-basic"
+            label="Please describe your main work responsibilties"
+            InputLabelProps={{ shrink: true }}
+            variant="outlined" />
+
+            <Typography   sx={stylingH7}>
+                <br></br>Where are you located?
             </Typography>
             <Box>
             <FormControl size="medium" sx={locationSelect}>
@@ -192,40 +230,41 @@ const MainPage = () => {
             </FormControl>
             </Box>
 
-            <Typography>
-                Please rank the following course project roles based on your experience
+            <Typography  sx={stylingH7}>
+                <br></br>Please rank the following course project roles based on your experience
             </Typography>
             <Box>
                 <Box sx={{width: 300, display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Typography>
-                    No Experience
+                <Typography sx={stylingH7LowSpace}>
+                    <u>No Experience</u>
                 </Typography>
 
-                <Typography>
-                    Very Experienced
+                <Typography  sx={stylingH7LowSpace}>
+                   <u>Very Experienced</u>
                 </Typography>
                 </Box>
 
-            <Box sx={{ width: 300, display: 'flex', flexDirection: 'row' }}>
-                <Typography>
+            <Box sx={{ width: 300}}>
+                <Typography  sx={stylingH7LowSpace}>
                     Coding:
                 </Typography>
                 <Slider
                     aria-label="Custom marks"
-                    defaultValue={20}
+                    defaultValue={0}
                     getAriaValueText={valuetext}
                     step={10}
+                    valueLabelDisplay="auto"
                     marks={marks}
                 />
             </Box>
 
             <Box sx={{ width: 300 }}>
-                <Typography>
+                <Typography  sx={stylingH7LowSpace}>
                     Requirements:
                 </Typography>
                 <Slider
                     aria-label="Custom marks"
-                    defaultValue={20}
+                    defaultValue={0}
                     getAriaValueText={valuetext}
                     step={10}
                     valueLabelDisplay="auto"
@@ -234,12 +273,12 @@ const MainPage = () => {
             </Box>
 
             <Box sx={{ width: 300 }}>
-                <Typography>
+                <Typography  sx={stylingH7LowSpace}>
                     Testing:
                 </Typography>
                 <Slider
                     aria-label="Custom marks"
-                    defaultValue={20}
+                    defaultValue={0}
                     getAriaValueText={valuetext}
                     step={10}
                     valueLabelDisplay="auto"
@@ -248,12 +287,12 @@ const MainPage = () => {
             </Box>
 
             <Box sx={{ width: 300 }}>
-                <Typography>
+                <Typography  sx={stylingH7LowSpace}>
                     UI Design:
                 </Typography>
                 <Slider
                     aria-label="Custom marks"
-                    defaultValue={20}
+                    defaultValue={0}
                     getAriaValueText={valuetext}
                     step={10}
                     valueLabelDisplay="auto"
@@ -262,12 +301,12 @@ const MainPage = () => {
             </Box>
 
             <Box sx={{ width: 300 }}>
-                <Typography>
+                <Typography sx={stylingH7LowSpace}>
                     Project Management:
                 </Typography>
                 <Slider
                     aria-label="Custom marks"
-                    defaultValue={20}
+                    defaultValue={0}
                     getAriaValueText={valuetext}
                     step={10}
                     valueLabelDisplay="auto"
@@ -275,12 +314,18 @@ const MainPage = () => {
                 />
             </Box>
         </Box>
+        <br></br>
 
-        <Typography>
-           In a brief paragraph, please describe your experience in the above 5 categories.
+        <TextField  sx={LargeTexBox}
+        required id="outlined-basic"
+        InputLabelProps={{ shrink: true }}
+        label="In a brief paragraph, please describe your experience in the above 5 categories."
+        variant="outlined"
+        inputProps={{ maxLength: 12 }}/>
+
+        <Typography sx={{marginTop: '100px'}}>
+
         </Typography>
-        <TextField sx={{width: '300px'}} fullWidth required id="outlined-basic"   InputLabelProps={{ shrink: true }} variant="outlined"  inputProps={{ maxLength: 12 }}/>
-
 
         </Box>
     );
