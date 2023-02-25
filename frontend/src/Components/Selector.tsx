@@ -3,10 +3,16 @@ import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui
 
 interface SelectorComponentProps {
     selectorOptions: {value: string | number, label: string}[],
-    selectorCallback: (value: string) => void
+    selectorCallback: (value: string) => void,
+    selectorText: string
 }
 
-const Selector = ({selectorOptions, selectorCallback}: SelectorComponentProps) => {
+const locationSelect = {
+    width: '200px',
+    margin: '10px'
+}
+
+const Selector = ({selectorOptions, selectorCallback, selectorText}: SelectorComponentProps) => {
 
     const [value, setValue] = React.useState('');
 
@@ -16,13 +22,13 @@ const Selector = ({selectorOptions, selectorCallback}: SelectorComponentProps) =
     }
 
     return (
-        <FormControl size="medium">
-            <InputLabel id="demo-simple-select-label" > Country </InputLabel>
+        <FormControl size="medium" sx={locationSelect}>
+            <InputLabel id="demo-simple-select-label" > {selectorText} </InputLabel>
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={value}
-                label="Country"
+                label={selectorText}
                 onChange={handleChange}
             >
                 {selectorOptions.map((item) => {

@@ -262,7 +262,6 @@ app.get('/generateTeams', async (req, res) => {
         index + 1, student.studentid, '"' + student.studentname + '"', student.email, student.timezonefromutc, student.coding, student.uidesign, student.testing, student.requirements, student.projectmanager, student.concentration1, student.concentration2, '"' + student.organization + '"', '"' + student.responsibilities + '"', '"' + student.experience + '"'
     ].join(','))
   )
-  console.log(JSON.stringify(arrayOfGroups), null , 2)
 
   csvRows.unshift('Group Number, Student Id, Full Name, Email, Timezone, Coding, UI/UX, Testing, Requirements, Projectmanager, Major, Minor, Organization, Responsibilities, Experience')
 

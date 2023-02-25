@@ -17,44 +17,88 @@ import submitLogo from '../SVG/submit.png';
 //Styling
 const stylingH3 = {
     color: "black",
-    fontSize: "50px",
+    fontSize: "45px",
     marginBottom: "40px"
 }
 
 const stylingH4 = {
     color: "black",
-    fontSize: "40px",
+    fontSize: "35px",
     marginBottom: "30px"
 }
 const stylingH5 = {
     color: "black",
-    fontSize: "30px",
+    fontSize: "25x",
     marginBottom: "20px"
 }
 
 const stylingH6 = {
     color: "black",
-    fontSize: "20px",
-    marginBottom: "1px"
+    fontSize: "15px",
+    marginBottom: "1px",
+    justifyContent: "center",
+    alignItems: "center"
+}
+
+const stylingH7 = {
+    color: "gray",
+    fontSize: "12px",
+    marginBottom: "1px",
+    marginTop: '30px'
+}
+
+const stylingH7LowSpace = {
+    color: "gray",
+    fontSize: "12px",
+    marginBottom: "1px",
+    marginTop: '10px'
+}
+
+const stylingH7LowSpaceUnderlined = {
+    color: "gray",
+    fontSize: "12px",
+    marginBottom: "1px",
+    marginTop: '10px'
+
+}
+
+const stylingH7BottomSpace = {
+    color: "gray",
+    fontSize: "12px",
+    marginBottom: "30px"
+}
+
+const stylingH7NoSpace = {
+    color: "gray",
+    fontSize: "12px",
+    //marginBottom: "10px"
+}
+
+const LargeTexBox = {
+    width: 600,
+    height: 50,
+    marginTop: "30px"
+
+}
+
+const buttonHolder = {
+//CSS
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: '1rem'
+
 }
 
 
 const bigBox = {
- //CSS
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center'
 }
 
-const buttonHolder = {
-//CSS
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'right',
-    justifyContent: 'right'
-
-}
 
 
 const buttonImageStyle = {
@@ -65,7 +109,30 @@ const buttonImageStyle = {
     '&:hover': {
         background: 'none',
     },
+    marginTop: '2rem'
 }
+
+const buttonImageStyleSubmit = {
+    padding: 0,
+    minWidth: 0,
+    backgroundColor: 'transparent',
+    border: 'none',
+    '&:hover': {
+        background: 'none',
+    },
+    marginTop: '2rem'
+}
+
+const countryOptions = [
+    {
+        value: "USA",
+        label: "United States"
+    },
+    {
+        value: "N/A",
+        label: "Other"
+    }
+]
 
 
 //Main Page
@@ -76,11 +143,11 @@ const MainPage = () => {
     const [state, setState] = React.useState('');
     const [timezone, setTimezone] = React.useState('');
 
-    const [coding, setCoding] = React.useState(20);
-    const [requirements, setRequirements] = React.useState(20);
-    const [testing, setTesting] = React.useState(20);
-    const [ui, setUi] = React.useState(20);
-    const [projectManagement, setProjectManagement] = React.useState(20);
+    const [coding, setCoding] = React.useState(30);
+    const [requirements, setRequirements] = React.useState(30);
+    const [testing, setTesting] = React.useState(30);
+    const [ui, setUi] = React.useState(30);
+    const [projectManagement, setProjectManagement] = React.useState(30);
 
     const [nextPage, setNextPage] = React.useState(false);
 
@@ -93,6 +160,8 @@ const MainPage = () => {
     const [open, setOpen] = React.useState(false);
     const [dialogHeader, setDialogHeader] = React.useState("");
     const [dialogMessage, setDialogMessage] = React.useState("");
+
+    const [disable, setDisabled] = React.useState(false)
 
 
 
@@ -171,7 +240,8 @@ const MainPage = () => {
                 //successful adding
                 if (resp.status === 200) {
                     setDialogHeader("Survey submitted")
-                    setDialogMessage("Thank you for submitting the survey")
+                    setDialogMessage("Thank you for submitting the survey. You may now leave the page")
+                    setDisabled(true)
                     setOpen(true)
                 }
                 //Open dialog
@@ -192,24 +262,20 @@ const MainPage = () => {
                         objectFit: 'cover',
                     }} alt="My Image" />
                 </Box>
-                <Button sx={buttonImageStyle} onClick={handleDownload} disableRipple>
-                    <img src={generateLogo} style={{
-                        width: '170px',
-                        height: '75px',
-                    }} alt="My Image" />
-                </Button>
             </Box>
-            <Typography variant='h3' sx={stylingH3}>
+            <Typography variant='h3' sx={stylingH4}>
                 Boston University's Metropolitan College
             </Typography>
-            <Typography variant='h4' sx={stylingH4}>
+            <Typography variant='h5' sx={stylingH5}>
                 Welcome to the Pre-course Survey
             </Typography>
-            <Typography variant='h5'sx={stylingH5}>
+            <Typography variant='h6'sx={stylingH6}>
                 CS633: Software Quality, Testing, and Security Management
             </Typography>
-            <Typography  variant='h5' sx={stylingH5}>
+            <Typography  variant='h6' sx={stylingH6}>
                 Spring 2023
+                <br></br>
+                <br></br>
             </Typography>
             <Box>
                 <TextField
@@ -225,8 +291,10 @@ const MainPage = () => {
                           inputProps={{ maxLength: 15 }}
                         />
             </Box>
-            <Typography  variant='h6'>
+            <Typography   sx={stylingH7}>
                 The information provided on this form will only be used to assign students to teams.
+            </Typography >
+            <Typography  sx={stylingH7BottomSpace}>
                 This information has no impact on student’s grade.
             </Typography >
             <Dialog
@@ -249,64 +317,70 @@ const MainPage = () => {
                     </Button>
                 </DialogActions>
             </Dialog>
-            {nextPage ? <Box>
-                <Typography>
-                    BU ID: {userData.buId} <br/>
-                    First Name: {userData.firstName}  <br/>
-                    Middle Name: {userData.middleName}  <br/>
-                    Last Name: {userData.lastName} <br/>
+            {nextPage ? <Box sx={bigBox}>
+                    <Typography  sx={stylingH6  }>
+                        <b> All information is required in order for Submit button to be enabled </b>
+                    </Typography >
+
+                <Typography sx={{stylingH6, marginTop: '30px'}}>
+                    BU ID: <b> {userData.buId} </b> <br/>
+                    Name: <b>{userData.firstName} {userData.middleName} {userData.lastName}</b> <br/>
                 </Typography>
 
-                <Typography>
-                    Organization you are currently working for
-                </Typography>
 
                 <TextField
                     required
-                    id="Organization "
+                    sx={LargeTexBox}
+                    id="outlined-basic"
                     label="Organization you are currently working for"
                     value={organization}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         setOrganization(event.target.value);
                     }}
-                    size="medium"
+                    variant="outlined"
                     InputLabelProps={{ shrink: true }}
                     inputProps={{ maxLength: 127}}
                 />
 
-                <Typography>
-                Please describe your main work responsibilities
-                </Typography>
-
-
                 <TextField
+                    sx={LargeTexBox}
                     required
-                    id="Responsibilities"
+                    id="outlined-basic"
                     value={responsibilities}
+                    label="Please describe your main work responsibilties"
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         setResponsibilities(event.target.value);
                     }}
-                    size="medium"
                     inputProps={{ maxLength: 255 }}
+                    variant="outlined"
                     InputLabelProps={{ shrink: true }}
                 />
 
-                <Typography>
-                Where are you located?
+                <Typography sx={stylingH7}>
+                    <br/> <b> Where are you located? </b>
                 </Typography>
 
-                //3 Forms: 1 for Country, State, Timezone
                 <Box>
-                {/*<Selector selectorCallback={setCountry} selectorOptions={countryOptions}></Selector>*/}
-                <Selector selectorCallback={setState} selectorOptions={stateOptions}></Selector>
-                <Selector selectorCallback={setTimezone} selectorOptions={timezoneOptions}></Selector>
+                <Selector selectorText={'Country'} selectorCallback={setCountry} selectorOptions={countryOptions}></Selector>
+                { country === 'USA' && <Selector selectorText={'State'} selectorCallback={setState} selectorOptions={stateOptions}></Selector> }
+                <Selector selectorText={'Timezone'} selectorCallback={setTimezone} selectorOptions={timezoneOptions}></Selector>
                 </Box>
 
-                <Typography>
-                Please rank the following course project roles based on your experience
+                <Typography sx={stylingH7} >
+                <br/> Please rank the following course project roles based on your experience
                 </Typography>
 
                 <Box>
+                <Box sx={{width: 300, display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Typography sx={stylingH7LowSpace}>
+                        <u>No Experience</u>
+                    </Typography>
+
+                    <Typography  sx={stylingH7LowSpace}>
+                        <u>Very Experienced</u>
+                    </Typography>
+                </Box>
+
                 <SliderComponent typography={'Coding'} sliderCallback={setCoding}/>
                 <SliderComponent typography={'Requirements'} sliderCallback={setRequirements}/>
                 <SliderComponent typography={'Testing'} sliderCallback={setTesting}/>
@@ -314,24 +388,22 @@ const MainPage = () => {
                 <SliderComponent typography={'Project Management'} sliderCallback={setProjectManagement}/>
                 </Box>
 
-                <Typography>
-                In a brief paragraph, please describe your experience in the above 5 categories.
-                </Typography>
+                <br></br>
 
                 <TextField
+                    sx={LargeTexBox}
                     required
                     id="Experience"
-                    label="Experience"
+                    label="In a brief paragraph, please describe your experience in the above 5 categories."
                     value={experience}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         setExperience(event.target.value);
                     }}
-                    size="medium"
                     inputProps={{ maxLength: 255 }}
                     InputLabelProps={{ shrink: true }}
                 />
 
-                <Button sx={buttonImageStyle} onClick={() => handleSubmit()} disabled={(buId === '' || country  === '' || state  === '' || timezone === '' || responsibilities  === '' || experience  === '' || organization  === '')}>
+                <Button sx={buttonImageStyleSubmit} onClick={() => handleSubmit()} disabled={(buId === '' || country  === '' || timezone === '' || responsibilities  === '' || experience  === '' || organization  === '' || disable)}>
                     <img src={submitLogo} style={{
                         width: '100%',
                         height: '100%',
@@ -339,12 +411,18 @@ const MainPage = () => {
                     }} alt="My Image" />
                 </Button>
                 </Box>
-                : <Box>
+                : <Box sx={buttonHolder}>
                     <Button sx={buttonImageStyle} onClick={() => { checkBuId()}}>
                         <img src={nextLogo} style={{
                             width: '100%',
                             height: '100%',
                             objectFit: 'cover',
+                        }} alt="My Image" />
+                    </Button>
+                    <Button sx={buttonImageStyle} onClick={handleDownload} disableRipple>
+                        <img src={generateLogo} style={{
+                            width: '170px',
+                            height: '75px',
                         }} alt="My Image" />
                     </Button>
                 </Box>

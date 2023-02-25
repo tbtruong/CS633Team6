@@ -8,8 +8,17 @@ interface SliderComponentProps {
     sliderCallback: (value: number) => void
 }
 
+
+
 //Takes in title, callback function
 const SliderComponent = ({typography, sliderCallback}: SliderComponentProps) => {
+
+    const stylingH7LowSpace = {
+        color: "gray",
+        fontSize: "12px",
+        marginBottom: "1px",
+        marginTop: '10px'
+    }
 
     const [value, setValue] = React.useState<number>(30);
 
@@ -21,17 +30,17 @@ const SliderComponent = ({typography, sliderCallback}: SliderComponentProps) => 
     const marks = [
         {
             value: 0,
-            label: 'No Experience',
+            // label: 'No Experience',
         },
         {
             value: 100,
-            label: 'Very Experienced',
+            // label: 'Very Experienced',
         },
     ];
 
     return (
         <Box sx={{ width: 300 }}>
-            <Typography>
+            <Typography sx={stylingH7LowSpace}>
                 {typography}:
             </Typography>
             <Slider
