@@ -76,11 +76,11 @@ const MainPage = () => {
     const [state, setState] = React.useState('');
     const [timezone, setTimezone] = React.useState('');
 
-    const [coding, setCoding] = React.useState(0);
-    const [requirements, setRequirements] = React.useState(0);
-    const [testing, setTesting] = React.useState(0);
-    const [ui, setUi] = React.useState(0);
-    const [projectManagement, setProjectManagement] = React.useState(0);
+    const [coding, setCoding] = React.useState(20);
+    const [requirements, setRequirements] = React.useState(20);
+    const [testing, setTesting] = React.useState(20);
+    const [ui, setUi] = React.useState(20);
+    const [projectManagement, setProjectManagement] = React.useState(20);
 
     const [nextPage, setNextPage] = React.useState(false);
 
@@ -90,7 +90,7 @@ const MainPage = () => {
 
     const [userData, setUserData] = React.useState({"firstName": "", "middleName": "", "lastName": "", "buId": ""})
 
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
     const [dialogHeader, setDialogHeader] = React.useState("");
     const [dialogMessage, setDialogMessage] = React.useState("");
 
@@ -331,7 +331,7 @@ const MainPage = () => {
                     InputLabelProps={{ shrink: true }}
                 />
 
-                <Button sx={buttonImageStyle} onClick={() => handleSubmit()}>
+                <Button sx={buttonImageStyle} onClick={() => handleSubmit()} disabled={(buId === '' || country  === '' || state  === '' || timezone === '' || responsibilities  === '' || experience  === '' || organization  === '')}>
                     <img src={submitLogo} style={{
                         width: '100%',
                         height: '100%',
