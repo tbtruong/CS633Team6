@@ -20,7 +20,7 @@ const SliderComponent = ({typography, sliderCallback}: SliderComponentProps) => 
         marginTop: '10px'
     }
 
-    const [value, setValue] = React.useState<number>(30);
+    const [value, setValue] = React.useState<number>(0);
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number);
