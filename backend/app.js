@@ -67,8 +67,8 @@ app.post('/formSubmission', async (req, res) => {
 
   try {
     await client.query(
-        "INSERT INTO SURVEYS (StudentId, Organization, Responsibilities, Country, State, TimezoneFromUTC, Coding, Requirements, Testing, UIDesign, ProjectManager, SurveyDate) " +
-        "VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);",[data.StudentId, data.Organization, data.Responsibilities, data.Country, data.State, data.TimezoneFromUTC, data.Coding, data.Requirements, data.Testing, data.UIDesign, data.ProjectManager, new Date().toLocaleDateString()]
+        "INSERT INTO SURVEYS (StudentId, Organization, Responsibilities, Country, State, TimezoneFromUTC, Coding, Requirements, Testing, UIDesign, ProjectManager, Experience, SurveyDate) " +
+        "VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);",[data.StudentId, data.Organization, data.Responsibilities, data.Country, data.State, data.TimezoneFromUTC, data.Coding, data.Requirements, data.Testing, data.UIDesign, data.ProjectManager, data.Experience, new Date().toLocaleDateString()]
     );
 
   } catch (err) {
@@ -242,7 +242,9 @@ app.get('/generateTeams', async (req, res) => {
       let score1 = g1.flatMap((student) => [Number(student.coding), Number(student.uidesign), Number(student.testing), Number(student.requirements), Number(student.projectmanager)]).reduce((sum, val) => sum + val, 0)
       let score2 = g2.flatMap((student) => [Number(student.coding), Number(student.uidesign), Number(student.testing), Number(student.requirements), Number(student.projectmanager)]).reduce((sum, val) => sum + val, 0)
       return score1 - score2
-    }) //Sort the groups by aggregate score, lowest to highest
+    })
+
+        //Sort the groups by aggregate score, lowest to highest
 
         //This is the part where we assign the leftover students over the groups
         //Object.values(role) = [{"1": [{student}]}, repeat"2"]

@@ -11,6 +11,26 @@ import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
 
 const teamBuilderIcon = require('../SVG/TeamBuilderLogo.svg') as string;
 
+
+function MySvgIcon(props: SvgIconProps) {
+    return (
+        <SvgIcon {...props}>
+            <g id="Layer_1-2" data-name="Layer 1">
+                <g>
+                    <rect className="cls-3" x=".5" y=".5" width="474" height="201"/>
+                    <path d="m474,1v200H1V1h473m1-1H0v202h475V0h0Z"/>
+                </g>
+                <path className="cls-2" d="m459,15v171.45H17.92V15h441.08m5-5H12.92v181.45h451.08V10h0Z"/>
+                <text className="cls-1" transform="translate(124.04 82.68)">
+                    <tspan x="0" y="0">TEAM</tspan>
+                    <tspan x="-67.25" y="86.4">BUILDER</tspan>
+                </text>
+            </g>
+        </SvgIcon>
+    );
+}
+
+
 //Styling
 const stylingH3 = {
     color: "black",
@@ -84,14 +104,6 @@ const MainPage = () => {
     const [dialogHeader, setDialogHeader] = React.useState("");
     const [dialogMessage, setDialogMessage] = React.useState("");
 
-    function HomeIcon(props: SvgIconProps) {
-        return (
-            <SvgIcon {...props}>
-                {teamBuilderIcon}
-            </SvgIcon>
-        );
-    }
-
 
 
     const handleDownload = () => {
@@ -160,6 +172,7 @@ const MainPage = () => {
             "Testing": testing,
             "UIDesign": ui,
             "ProjectManager": projectManagement,
+            "Experience": experience,
             "SurveyDate": new Date()
         }
 
@@ -182,7 +195,7 @@ const MainPage = () => {
     return (
         <Box sx={bigBox}>
             <Box sx={buttonHolder}>
-                <Button> <img src={teamBuilderIcon}/></Button>
+                <MySvgIcon/>
                 <Button variant="contained" size="large" onClick={handleDownload}>
                     Teams Report
                 </Button>
@@ -210,15 +223,13 @@ const MainPage = () => {
                           }}
                           size="medium"
                           InputLabelProps={{ shrink: true }}
+                          inputProps={{ maxLength: 15 }}
                         />
             </Box>
             <Typography  variant='h6'>
                 The information provided on this form will only be used to assign students to teams.
                 This information has no impact on student’s grade.
             </Typography >
-            <Button variant="contained" size="large" sx={buttonHolder} onClick={() => { checkBuId()}}>
-              NEXT
-            </Button>
             <Dialog
                 open={open}
                 onClose={handleClose}
@@ -261,6 +272,7 @@ const MainPage = () => {
                     }}
                     size="medium"
                     InputLabelProps={{ shrink: true }}
+                    inputProps={{ maxLength: 127}}
                 />
 
                 <Typography>
@@ -276,6 +288,7 @@ const MainPage = () => {
                         setResponsibilities(event.target.value);
                     }}
                     size="medium"
+                    inputProps={{ maxLength: 255 }}
                     InputLabelProps={{ shrink: true }}
                 />
 
@@ -315,14 +328,16 @@ const MainPage = () => {
                         setExperience(event.target.value);
                     }}
                     size="medium"
-                    inputProps={{ maxLength: 12 }}
+                    inputProps={{ maxLength: 255 }}
                     InputLabelProps={{ shrink: true }}
                 />
 
                 <Button onClick={() => handleSubmit()}> SUBMIT </Button>
                 </Box>
 
-                : <Box></Box>
+                : <Box><Button variant="contained" size="large" sx={buttonHolder} onClick={() => { checkBuId()}}>
+                    NEXT
+                </Button></Box>
             }
         </Box>
     );
@@ -330,3 +345,36 @@ const MainPage = () => {
 
 
 export default MainPage;
+
+/*
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import myImage from './my-image.png';
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    padding: 0,
+    minWidth: 0,
+    backgroundColor: 'transparent',
+    border: 'none',
+    cursor: 'pointer',
+  },
+  img: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+  },
+}));
+
+
+const MyImageButton = () => {
+  const classes = useStyles();
+
+  return (
+    <Button className={classes.button}>
+      <img src={myImage} alt="My Image" className={classes.img} />
+    </Button>
+  );
+};
+
+ */
