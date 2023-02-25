@@ -1,4 +1,4 @@
-import React, {FormEvent} from 'react';
+import React from 'react';
 import Typography from '@mui/material/Typography';
 import {Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@mui/material"
 import Selector from "./Selector"
@@ -6,8 +6,6 @@ import SliderComponent from "./Slider"
 import axios, {AxiosError} from "axios"
 import stateOptions from './mockData/stateMenuItems.json'
 import timezoneOptions from './mockData/timezoneMenuItems.json'
-
-
 import generateLogo from '../SVG/generate.png';
 import teamLogo from '../SVG/logo.png';
 import nextLogo from '../SVG/next.png';
@@ -15,12 +13,6 @@ import submitLogo from '../SVG/submit.png';
 
 
 //Styling
-const stylingH3 = {
-    color: "black",
-    fontSize: "45px",
-    marginBottom: "40px"
-}
-
 const stylingH4 = {
     color: "black",
     fontSize: "35px",
@@ -54,24 +46,10 @@ const stylingH7LowSpace = {
     marginTop: '10px'
 }
 
-const stylingH7LowSpaceUnderlined = {
-    color: "gray",
-    fontSize: "12px",
-    marginBottom: "1px",
-    marginTop: '10px'
-
-}
-
 const stylingH7BottomSpace = {
     color: "gray",
     fontSize: "12px",
     marginBottom: "30px"
-}
-
-const stylingH7NoSpace = {
-    color: "gray",
-    fontSize: "12px",
-    //marginBottom: "10px"
 }
 
 const LargeTexBox = {
@@ -109,7 +87,7 @@ const buttonImageStyle = {
     '&:hover': {
         background: 'none',
     },
-    marginTop: '2rem'
+    marginTop: '1rem'
 }
 
 const buttonImageStyleSubmit = {
@@ -143,11 +121,11 @@ const MainPage = () => {
     const [state, setState] = React.useState('');
     const [timezone, setTimezone] = React.useState('');
 
-    const [coding, setCoding] = React.useState(30);
-    const [requirements, setRequirements] = React.useState(30);
-    const [testing, setTesting] = React.useState(30);
-    const [ui, setUi] = React.useState(30);
-    const [projectManagement, setProjectManagement] = React.useState(30);
+    const [coding, setCoding] = React.useState(0);
+    const [requirements, setRequirements] = React.useState(0);
+    const [testing, setTesting] = React.useState(0);
+    const [ui, setUi] = React.useState(0);
+    const [projectManagement, setProjectManagement] = React.useState(0);
 
     const [nextPage, setNextPage] = React.useState(false);
 
@@ -181,10 +159,6 @@ const MainPage = () => {
         });
     };
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
     const handleClose = () => {
         setOpen(false);
     };
@@ -201,15 +175,13 @@ const MainPage = () => {
                 setNextPage(true);
             }
             else if (resp.status === 201) {
-                console.log('survey already submitted')
                 //Make a dialog?
-                console.log('in survey already submitted')
                 setDialogHeader("Survey Already Submitted")
                 setDialogMessage("If you believe this might be an error, please contact the professor")
                 setOpen(true)
             } else {
                 //Make a dialog saying invalid id
-                console.log('invalid id')
+
                 setDialogHeader("Id invalid")
                 setDialogMessage("The Id submitted did not match anyone in the roster. Please try again")
                 setOpen(true)
@@ -269,7 +241,7 @@ const MainPage = () => {
             <Typography variant='h5' sx={stylingH5}>
                 Welcome to the Pre-course Survey
             </Typography>
-            <Typography variant='h6'sx={stylingH6}>
+            <Typography variant='h6' sx={stylingH6}>
                 CS633: Software Quality, Testing, and Security Management
             </Typography>
             <Typography  variant='h6' sx={stylingH6}>
@@ -281,7 +253,7 @@ const MainPage = () => {
                 <TextField
                           required
                           id="BU-ID"
-                          label="Please enter your BU ID"
+                          label="Please enter your BU ID (UXXXXXXXX Format)"
                           value={buId}
                           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                               setBuId(event.target.value);
@@ -291,10 +263,10 @@ const MainPage = () => {
                           inputProps={{ maxLength: 15 }}
                         />
             </Box>
-            <Typography   sx={stylingH7}>
+            <Typography sx={stylingH7}>
                 The information provided on this form will only be used to assign students to teams.
             </Typography >
-            <Typography  sx={stylingH7BottomSpace}>
+            <Typography sx={stylingH7BottomSpace}>
                 This information has no impact on student’s grade.
             </Typography >
             <Dialog
@@ -318,7 +290,7 @@ const MainPage = () => {
                 </DialogActions>
             </Dialog>
             {nextPage ? <Box sx={bigBox}>
-                    <Typography  sx={stylingH6  }>
+                    <Typography  sx={stylingH6}>
                         <b> All information is required in order for Submit button to be enabled </b>
                     </Typography >
 

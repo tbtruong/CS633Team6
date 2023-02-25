@@ -5,15 +5,6 @@ import client from './pgClient.js'
 import cors from "cors";
 import {fileURLToPath} from 'url';
 
-// import rosterMock from './mockData/rosterExample.json' assert { type: "json" };
-// import surveyMock  from './mockData/surveyExample.json' assert { type: "json" };
-
-// const express = require('express')
-// const path = require('path')
-// const dotenv = require('dotenv')
-// const client = require('./pgClient.js')
-// const cors = require('cors')
-
 //Setting up env variables
 dotenv.config({path:"./.env"})
 
@@ -97,7 +88,7 @@ app.get('/generateTeams', async (req, res) => {
   const softwareDevMajor = []
   const noSurveyStudents = []
   let totalStudents
-  const softwareExperience = [] //currently combined with softwareDev
+
   // 0 = Coder, 1 = Requirements, 2 = Tester, 3 = UI, 4 = PM
   const role = {
     "1": {
@@ -268,18 +259,9 @@ app.get('/generateTeams', async (req, res) => {
   const csvString = csvRows.join('\n') //Data for csv
   const fileName = 'Example1.csv'
 
-
-
-  // File with roster + survey
-  // res.attachment(fileName)
-  // res.status(200).send(csvRows2)
-
   //File with grouping
   res.attachment(fileName)
   res.status(200).send(csvString)
-
-
-  // res.status(200).send(JSON.stringify(arrayOfGroups))
 
 });
 
