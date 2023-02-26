@@ -59,7 +59,7 @@ app.post('/formSubmission', async (req, res) => {
   try {
     await client.query(
         "INSERT INTO SURVEYS (StudentId, Organization, Responsibilities, Country, State, TimezoneFromUTC, Coding, Requirements, Testing, UIDesign, ProjectManager, Experience, SurveyDate) " +
-        "VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);",[data.StudentId, data.Organization, data.Responsibilities, data.Country, data.State, data.TimezoneFromUTC, data.Coding, data.Requirements, data.Testing, data.UIDesign, data.ProjectManager, data.Experience, new Date().toLocaleDateString()]
+        "VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);",[data.StudentId, data.Organization, data.Responsibilities, data.Country, data.State, Number(data.TimezoneFromUTC), data.Coding, data.Requirements, data.Testing, data.UIDesign, data.ProjectManager, data.Experience, new Date().toLocaleDateString()]
     );
 
   } catch (err) {

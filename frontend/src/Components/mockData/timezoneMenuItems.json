@@ -4,7 +4,27 @@
         "label": "Eastern Standard Time (EST)"
     },
     {
-        "value": "The UTC value",
-        "label": "The full name of timezone and acronym of the timezone"
+        "value": -8,
+        "label": "Pacific Standard Time (PST)"
+    },
+    {
+        "value": -7,
+        "label": "Mountain Standard Time (MST)"
+    },
+    {
+        "value": -6,
+        "label": "Central Standard Time (CST)"
+    },
+    {
+        "value": -9,
+        "label": "Alaska Standard Time (AKST)"
+    },
+    {
+        "value": -10,
+        "label": "Hawaii-Aleutian Time (HST)"
+    },
+    {
+        "value": -99,
+        "label": "Other - Timezone Not Listed"
     }
 ]
